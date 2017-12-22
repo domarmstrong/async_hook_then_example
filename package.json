@@ -1,0 +1,14 @@
+{
+  "name": "async-hook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dom Armstrong",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "4.0.1"
+  }
+}
