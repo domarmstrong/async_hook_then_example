@@ -20,7 +20,7 @@ class Service {
   }
 
   async run(fn) {
-    this.store[asyncHooks.executionAsyncId()] = { ctx: null };
+    this.store[asyncHooks.executionAsyncId()] = {};
     await fn();
   }
 

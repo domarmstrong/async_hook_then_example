@@ -4,8 +4,6 @@ const Service = require('./service');
 
 const setTimeoutAsync = util.promisify(setTimeout);
 
-console.log(Service);
-
 describe('Service', () => {
   let service;
 
