@@ -1,6 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const Service = require('./service');
+const asyncHooks = require('async_hooks');
 
 const setTimeoutAsync = util.promisify(setTimeout);
 
@@ -38,16 +39,30 @@ describe('Service', () => {
     await Promise.all([a, b, c]);
   });
 
+  it('can handle promises created out of the execution stack by wrapping in Promise.all', async () => {
+    service = new Service();
+
+    const p = Promise.resolve();
+
+    await service.run(async () => {
+      service.set('foo', 'foo');
+
+      await Promise.all([p]).then(() => {
+        assert.strictEqual('foo', service.get('foo'));
+      });
+    });
+  });
+
   it('can handle promises created out of the execution stack', async () => {
     service = new Service();
 
     const p = Promise.resolve();
 
     await service.run(async () => {
-      service.set('foo');
+      service.set('foo', 'foo');
 
       await p.then(() => {
-        assert.strictEqual('foo', service.get());
+        assert.strictEqual('foo', service.get('foo'));
       });
     });
   });
